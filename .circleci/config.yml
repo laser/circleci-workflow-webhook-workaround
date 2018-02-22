@@ -35,6 +35,19 @@ jobs:
       - <<: *image_build_environment
     steps:
       - run: sleep 1
+  notify:
+    parallelism: 1
+    docker:
+      - <<: *image_build_environment
+    steps:
+      - run:
+          name: Issue request to notification endpoint
+          command: |
+            curl -H "Accept: application/json" \
+                 -u ${CIRCLE_API_TOKEN}: \
+                 https://circleci.com/api/v1.1/project/github/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BUILD_NUM} \
+              | jq "{ payload: . } | ." \
+              | curl -H "Content-Type: application/json" -X POST -d @- https://hookb.in/v955pPBG
 workflows:
   version: 2
   do-it-all:
@@ -50,6 +63,9 @@ workflows:
           requires:
             - test
             - package
-notify:
-  webhooks:
-    - url: https://hookb.in/vDkk3rmn
+      - notify:
+          requires:
+            - deploy
+# notify:
+#   webhooks:
+#     - url: https://hookb.in/vDkk3rmn
