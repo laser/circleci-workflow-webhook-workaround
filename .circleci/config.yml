@@ -73,6 +73,6 @@ workflows:
       - notify:
           requires:
             - deploy
-# notify:
-#   webhooks:
-#     - url: https://hookb.in/vDkk3rmn
+notify:
+  webhooks:
+    - url: https://hookbin.com/bin/Klww8jkp
