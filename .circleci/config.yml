@@ -41,6 +41,13 @@ jobs:
       - <<: *image_build_environment
     steps:
       - run:
+          name: Install jq and curl
+          command: |
+            apk update \
+              && apk add jq curl \
+              && rm -rf /var/cache/apk/* \
+              && rm -rf /var/cache/curl/*
+      - run:
           name: Issue request to notification endpoint
           command: |
             curl -H "Accept: application/json" \
