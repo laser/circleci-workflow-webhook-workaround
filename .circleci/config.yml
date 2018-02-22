@@ -54,7 +54,7 @@ jobs:
                  -u ${CIRCLE_API_TOKEN}: \
                  https://circleci.com/api/v1.1/project/github/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BUILD_NUM} \
               | jq "{ payload: . } | ." \
-              | curl -H "Content-Type: application/json" -X POST -d @- https://hookb.in/Klww8jkp
+              | curl -H "Content-Type: application/json" -X POST -d @- https://hookb.in/Klww8jkp?foo=bar
 workflows:
   version: 2
   do-it-all:
