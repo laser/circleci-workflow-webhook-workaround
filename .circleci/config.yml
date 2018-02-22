@@ -75,4 +75,4 @@ workflows:
             - deploy
 notify:
   webhooks:
-    - url: https://hookbin.com/bin/Klww8jkp
+    - url: https://hookb.in/Klww8jkp
