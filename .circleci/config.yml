@@ -1,0 +1,55 @@
+########################################################################################################################
+# DOCKER IMAGES
+###############
+
+image_build_environment: &image_build_environment
+  image: alpine:latest
+
+########################################################################################################################
+# JOBS AND WORKFLOWS
+####################
+
+version: 2
+jobs:
+  bootstrap:
+    parallelism: 1
+    docker:
+      - <<: *image_build_environment
+    steps:
+      - run: sleep 1
+  package:
+    parallelism: 1
+    docker:
+      - <<: *image_build_environment
+    steps:
+      - run: sleep 1
+  test:
+    parallelism: 1
+    docker:
+      - <<: *image_build_environment
+    steps:
+      - run: sleep 1
+  deploy:
+    parallelism: 1
+    docker:
+      - <<: *image_build_environment
+    steps:
+      - run: sleep 1
+workflows:
+  version: 2
+  do-it-all:
+    jobs:
+      - bootstrap
+      - package:
+          requires:
+            - bootstrap
+      - test:
+          requires:
+            - bootstrap
+      - deploy:
+          requires:
+            - test
+            - package
+notify:
+  webhooks:
+    - url: https://hookb.in/vDkk3rmn
